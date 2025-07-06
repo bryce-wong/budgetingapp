@@ -286,12 +286,12 @@ def save_summary():
 
     TOKEN = os.environ["TOKEN"]
     PROJECT = os.environ["PROJECT"]
-    TAB = "summaries"
+    SUMMARY_TAB = os.environ["SUMMARY_TAB"]
     USER = os.environ["USER"]
 
     headers = {"Authorization": TOKEN}
 
-    summary_sheet_endpoint = f"https://api.sheety.co/{USER}/{PROJECT}/{TAB}"
+    summary_sheet_endpoint = f"https://api.sheety.co/{USER}/{PROJECT}/{SUMMARY_TAB}"
 
     try:
         # Add a separator row first
