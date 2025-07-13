@@ -15,9 +15,8 @@ RUN pip install uv
 COPY pyproject.toml uv.lock ./
 
 # Install project dependencies using uv sync
-# '--system' makes uv install into the system site-packages (or the venv it's in)
 # '--prod' (or --no-dev) tells uv to only install production dependencies
-RUN uv sync --system --prod
+RUN uv sync --prod
 
 # Copy the rest of your application code
 COPY . .
@@ -36,8 +35,8 @@ ENV PORT 8080
 # However, if uv creates a virtual environment, you'd activate it.
 # A more robust way might be to add a simple shell script for startup.
 # But generally, for simple cases where dependencies are in global site-packages:
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:app"]
+CMD ["/bin/bash", "-c", "source .venv/bin/activate && gunicorn --bind 0.0.0.0:8080 main:app"]
 
-# Alternative if gunicorn isn't directly on PATH after uv sync
-# (e.g., if uv created a venv in a non-standard location or for robustness)
-# CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:8080", "main:app"]
+# Alternative using 'python -m' which can sometimes automatically find the venv
+# This often works because uv typically puts the venv's python in a common location.
+# CMD ["/app/.venv/bin/python", "-m", "gunicorn", "--bind", "0.0.0.0:8080", "main:app"]
