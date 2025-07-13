@@ -15,10 +15,9 @@ RUN pip install uv
 COPY pyproject.toml uv.lock ./
 
 # Install project dependencies using uv sync
-# '--no-setup-py' is often good practice to avoid legacy setup.py issues
 # '--system' makes uv install into the system site-packages (or the venv it's in)
 # '--prod' (or --no-dev) tells uv to only install production dependencies
-RUN uv sync --no-setup-py --system --prod
+RUN uv sync --system --prod
 
 # Copy the rest of your application code
 COPY . .
