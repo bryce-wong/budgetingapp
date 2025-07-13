@@ -28,9 +28,6 @@ ENV PORT 8080
 ENV FLASK_APP=main.py
 ENV FLASK_ENV=production
 
-# Run the application
-CMD ["python", "main.py"]
-
 # Command to run your application using Gunicorn
 # uv doesn't have a direct 'uv run' command for arbitrary scripts like Poetry.
 # Instead, you activate the environment and then run your command.
@@ -39,7 +36,7 @@ CMD ["python", "main.py"]
 # However, if uv creates a virtual environment, you'd activate it.
 # A more robust way might be to add a simple shell script for startup.
 # But generally, for simple cases where dependencies are in global site-packages:
-# CMD ["/bin/bash", "-c", "source .venv/bin/activate && gunicorn --bind 0.0.0.0:8080 main:app"]
+CMD ["/bin/bash", "-c", "source .venv/bin/activate && gunicorn --bind 0.0.0.0:8080 main:app"]
 
 # Alternative using 'python -m' which can sometimes automatically find the venv
 # This often works because uv typically puts the venv's python in a common location.
