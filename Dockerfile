@@ -15,8 +15,7 @@ RUN pip install uv
 COPY pyproject.toml uv.lock ./
 
 # Install project dependencies using uv sync
-# '--prod' (or --no-dev) tells uv to only install production dependencies
-RUN uv sync --prod
+RUN uv sync --frozen
 
 # Copy the rest of your application code
 COPY . .
@@ -26,6 +25,11 @@ EXPOSE 8080
 
 # Cloud Run sets the PORT env var by default, but it's good practice for clarity
 ENV PORT 8080
+ENV FLASK_APP=main.py
+ENV FLASK_ENV=production
+
+# Run the application
+CMD ["python", "main.py"]
 
 # Command to run your application using Gunicorn
 # uv doesn't have a direct 'uv run' command for arbitrary scripts like Poetry.
@@ -35,7 +39,7 @@ ENV PORT 8080
 # However, if uv creates a virtual environment, you'd activate it.
 # A more robust way might be to add a simple shell script for startup.
 # But generally, for simple cases where dependencies are in global site-packages:
-CMD ["/bin/bash", "-c", "source .venv/bin/activate && gunicorn --bind 0.0.0.0:8080 main:app"]
+# CMD ["/bin/bash", "-c", "source .venv/bin/activate && gunicorn --bind 0.0.0.0:8080 main:app"]
 
 # Alternative using 'python -m' which can sometimes automatically find the venv
 # This often works because uv typically puts the venv's python in a common location.
