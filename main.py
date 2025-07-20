@@ -213,7 +213,7 @@ def stats():
                 'other': 150,
                 'transport': 100,
                 'entertainment': 200,
-                'splitwise': 200
+                'splitwise': 600
             }
 
             # Calculate category totals (normalize category names)
