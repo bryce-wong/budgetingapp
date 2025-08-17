@@ -14,7 +14,7 @@ HTML_TEMPLATE = '''
     <style>
         body { font-family: Arial; max-width: 500px; margin: 40px auto; padding: 20px; }
         .form-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 8px; margin-top: 5px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
         button { background: #4CAF50; color: white; padding: 10px 15px; border: none; cursor: pointer; }
         .success { color: green; margin-top: 10px; }
         .nav { margin-bottom: 20px; }
@@ -32,9 +32,18 @@ HTML_TEMPLATE = '''
             <label>Item:</label>
             <input type="text" name="item" required>
         </div>
-        <div class="form-group">
+       <div class="form-group">
             <label>Category:</label>
-            <input type="text" name="category" required>
+            <select name="category" required>
+                <option value="">-- Select a category --</option>
+                <option value="food">Food</option>
+                <option value="home+health">Home + Health</option>
+                <option value="beauty+clothes">Beauty + Clothes</option>
+                <option value="other">Other</option>
+                <option value="transport">Transport</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="splitwise">Splitwise</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Price:</label>
