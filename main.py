@@ -49,6 +49,11 @@ HTML_TEMPLATE = '''
             <label>Price:</label>
             <input type="number" step="0.01" name="price" required>
         </div>
+        <div class="form-group">
+            <label>Month & Year (optional):</label>
+            <input type="month" name="month_year" placeholder="Leave blank for current month">
+            <small style="color: #666; font-size: 12px;">Leave blank to use current month</small>
+        </div>
         <button type="submit">Add Expense</button>
     </form>
     {% if message %}
@@ -147,10 +152,23 @@ STATS_TEMPLATE = '''
 def index():
     message = ''
     if request.method == 'POST':
-        today = datetime.now()
+        # Handle optional month/year input
+        month_year_input = request.form.get('month_year')
+        if month_year_input:
+            # Parse the input (format: YYYY-MM) and convert to "Month YYYY" format
+            try:
+                parsed_date = datetime.strptime(month_year_input, "%Y-%m")
+                month_str = parsed_date.strftime("%B %Y")
+            except ValueError:
+                # If parsing fails, default to current month
+                month_str = datetime.now().strftime("%B %Y")
+        else:
+            # Default to current month if no input provided
+            month_str = datetime.now().strftime("%B %Y")
+            
         add_row = {
             "expense": {
-                "month": today.strftime("%B %Y"),
+                "month": month_str,
                 "item": request.form['item'],
                 "category": request.form['category'],
                 "price": request.form['price']
