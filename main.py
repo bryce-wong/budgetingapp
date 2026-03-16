@@ -234,13 +234,13 @@ def stats():
         if month_expenses:
             # Define budget goals for each category
             budget_goals = {
-                'food': 375,
-                'home+health': 75,
-                'beauty+clothes': 50,
+                'food': 400,
+                'home+health': 100,
+                'beauty+clothes': 100,
                 'other': 150,
-                'transport': 75,
-                'entertainment': 200,
-                'splitwise': 575
+                'transport': 100,
+                'entertainment': 250,
+                'splitwise': 400
             }
 
             # Calculate category totals (normalize category names)
