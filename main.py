@@ -275,7 +275,7 @@ def stats():
 
             # Calculate overall total
             total_spent = sum(category_totals.values())
-            overall_budget = 1700
+            overall_budget = 1500
             overall_difference = total_spent - overall_budget
 
             if overall_difference > 0:
